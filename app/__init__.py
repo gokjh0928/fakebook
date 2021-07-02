@@ -1,6 +1,5 @@
 from flask import Flask
 
-
 # __name__ as reference to current file
 app = Flask(__name__)
 
