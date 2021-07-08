@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+<<<<<<< HEAD
 {% block content %}
 <h3>Single Blog Post</h3>
 <hr />
@@ -15,5 +16,24 @@
         ​
     </div>
 </li>
+=======
+
+{% block content %}
+    <h3>Single Blog Post</h3>
+    <hr />
+
+    <a class="btn btn-info" href="{{ url_for('main.home') }}">Back</a>
+
+    <li class="list-group-item">
+        <p>{{ p['body'] }}</p>
+        <div>
+            <span>
+                <cite>&mdash; {{ p.author }}</cite>
+                <small class="float-right">{{ p.timestamp }}</small>
+            </span>
+    
+        </div>
+    </li>
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
 
 {% endblock content %}

@@ -1,9 +1,17 @@
 header {
+<<<<<<< HEAD
     margin-bottom: 35px;
 }
 
 footer {
     margin-top: 35px;
+=======
+    margin-bottom: 45px;
+}
+
+footer {
+    margin-top: 45px;
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
 }
 
 .content-spacing {

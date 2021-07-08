@@ -1,45 +1,47 @@
-# jsonify converts python dict to json
-from flask import render_template
 from .import bp as app
-# current_app gets instance of currently running app
-
-"""
-CREATE - POST
-READ - GET
-UPDATE - PUT
-DELETE - DELETE
-"""
+from flask import render_template
 
 posts = [
-    {
-        'id': 1,
-        'body': 'This is post 1',
-        'author': 'Jay Kim',
-        'timestamp': 'September 28'
-    },
-    {
-        'id': 2,
-        'body': 'This is post 2',
-        'author': 'Jay Kim',
-        'timestamp': 'September 10'
-    },
-    {
-        'id': 3,
-        'body': 'This is post 3',
-        'author': 'Lucas Lang',
-        'timestamp': 'September 4'
-    }
-]
+        {
+            'id': 1,
+            'body': 'This is the first blog post',
+            'author': 'Lucas L.',
+            'timestamp': '10-2-2020',
+            'items': {
+                'health': 10,
+                'mana': 5
+            }
+        },
+        {
+            'id': 2,
+            'body': 'This is the second blog post',
+            'author': 'Derek H.',
+            'timestamp': '10-25-2020',
+            'items': {
+                'health': 8,
+                'mana': 3
+            }
+        },
+        {
+            'id': 3,
+            'body': 'This is the third blog post',
+            'author': 'Joel Carter',
+            'timestamp': '11-2-2020',
+            'items': {
+                'health': 9,
+                'mana': 9
+            }
+        }
+    ]
 
-# home page
 @app.route('/')
-@app.route('/home')
 def home():
     context = {
         'posts': posts
     }
     return render_template('home.html', **context)
 
+<<<<<<< HEAD
 # contact page
 @app.route('/contact')
 def contact():
@@ -50,3 +52,15 @@ def contact():
 def profile():
     logged_in_user = 'Jay'
     return render_template("profile.html", u=logged_in_user)
+=======
+# profile
+@app.route('/profile')
+def profile():
+    logged_in_user = 'Derek'
+    return render_template('profile.html', u=logged_in_user)
+
+# contact
+@app.route('/contact')
+def contact():
+    return "This is the contact page."
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938

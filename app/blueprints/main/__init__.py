@@ -1,6 +1,9 @@
 from flask import Blueprint
+# from.import routes
 
-# name, file(location reference), url_prefix
+
+# from . import routes
+
 bp = Blueprint('main', __name__, url_prefix='/')
 
-from .import routes  # AKA use routes from the same folder
+from .import routes

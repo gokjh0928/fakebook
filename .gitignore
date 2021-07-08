@@ -1,6 +1,13 @@
 .env
+<<<<<<< HEAD
 .venv
 virtualenv
 __pycache__
 *.pyc
 .DS_Store
+=======
+venv
+virtualenv
+__pycache__
+*.pyc
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938

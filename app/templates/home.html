@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<<<<<<< HEAD
 <h3>
     Home | Welcome!
 </h3>
@@ -19,17 +20,46 @@
 </form>
 <hr />
 <ul class="list-group">
+=======
+
+    <h3>
+        Home
+    </h3>
+    <hr />
+
+    <form action="" method="POST" s>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10">
+                    <input name="body_text" class="form-control" type="text" placeholder="Your blog post here..." />
+                </div>
+                <div class="col-md-2">
+                    <input class="btn btn-info btn-block" type="submit" value="Post" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr />
+
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
     <ul class="list-group">
         {% for p in posts %}
         <li class="list-group-item">
             <p>
+<<<<<<< HEAD
                 <a href="{{ url_for('blog.get_post', id=p.id)}}">{{ p['body'] }}</a>
+=======
+                <a href="{{ url_for('blog.get_post', id=p.id) }}">{{ p['body'] }}</a>
+                {# <a href="/blog/{{ p.id }}">{{ p['body'] }}</a> #}
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
             </p>
             <div>
                 <span>
                     <cite>&mdash; {{ p.author }}</cite>
                     <small class="float-right">{{ p.timestamp }}</small>
                 </span>
+<<<<<<< HEAD
                 ​
             </div>
         </li>
@@ -39,3 +69,15 @@
 
 
 {% endblock content %}}
+=======
+        
+            </div>
+        </li>
+        {# {{ p['items']['health'] }} #}
+        {# {{ p['items']['mana'] }} #}
+        {% endfor %}
+    </ul>
+
+
+{% endblock content %}
+>>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
