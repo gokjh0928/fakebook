@@ -33,6 +33,7 @@ posts = [
 
 # home page
 @app.route('/')
+@app.route('/home')
 def home():
     context = {
         'posts': posts
