@@ -1,5 +1,8 @@
 from .import bp as app
-from flask import render_template
+from flask import render_template, request, url_for, flash, redirect
+from flask_login import current_user
+from app import db
+from app.blueprints.authentication.models import User
 
 posts = [
         {
@@ -42,10 +45,17 @@ def home():
     return render_template('home.html', **context)
 
 # profile
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    logged_in_user = 'Derek'
-    return render_template('profile.html', u=logged_in_user)
+    if request.method == 'POST':
+        u = User.query.get(current_user.id)
+        u.first_name = request.form.get('first_name')
+        u.last_name = request.form.get('last_name')
+        u.email = request.form.get('email')
+        db.session.commit()
+        flash('Profile updated successfully', 'info')
+        return redirect(url_for('main.profile'))
+    return render_template('profile.html')
 
 # contact
 @app.route('/contact')
