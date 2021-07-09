@@ -1,61 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<<<<<<< HEAD
-<h3>
-    Profile | Welcome!
-</h3>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <img class="img-fluid" src="https://via.placeholder.com/1000x1500" alt="profile">
-    </div>
-    <div class="col-md">
-        <form action="">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="First Name" />
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Last Name" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="file" class="form-control-file" name="" id="" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <textarea name="" id="" cols="40" rows="10" placeholder="Type bio here"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="submit" class="btn btn-info btn-block" value="Update Profile" />
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-{% endblock content %}}
-=======
     <h3>
         Profile | Welcome {{ current_user.email }}
     </h3>
@@ -109,4 +54,3 @@
         </div>
     </div>
 {% endblock content %}
->>>>>>> 11cfe8ba5f502b36ad55db0f81c29ef2adf3c938
