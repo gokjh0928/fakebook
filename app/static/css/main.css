@@ -9,3 +9,12 @@ footer {
 .content-spacing {
     padding: 35px 0;
 }
+
+.top-spacing {
+    margin-top: -30px;
+}
+
+.admin-margin {
+    margin-top: 5%;
+    margin-bottom: 20%;
+}

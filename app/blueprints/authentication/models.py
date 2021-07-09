@@ -18,6 +18,8 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(200))
+    bio = db.Column(db.Text)
+    image = db.Column(db.String)    # reference to an image
     # backref will make it so that any Post object will display User info if ".address" is appended
     # lazy='dynamic' makes it so that posts will only be generated when used
     posts = db.relationship('Post', backref='author', lazy='dynamic')    

@@ -41,6 +41,7 @@ def contact():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if request.method == 'POST':
+        #print(request.files.get('profile_image'))
         u = User.query.get(current_user.id)
         u.first_name = request.form.get('first-name')
         u.last_name = request.form.get('last-name')
