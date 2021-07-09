@@ -1,6 +1,10 @@
 # jsonify converts python dict to json
-from flask import render_template
+from flask import render_template, request, redirect, url_for, flash
 from .import bp as app
+from flask_login import current_user
+from app import db
+from app.blueprints.authentication.models import User
+from app.blueprints.blog.models import Post
 # current_app gets instance of currently running app
 
 """
@@ -10,32 +14,21 @@ UPDATE - PUT
 DELETE - DELETE
 """
 
-posts = [
-    {
-        'id': 1,
-        'body': 'This is post 1',
-        'author': 'Jay Kim',
-        'timestamp': 'September 28'
-    },
-    {
-        'id': 2,
-        'body': 'This is post 2',
-        'author': 'Jay Kim',
-        'timestamp': 'September 10'
-    },
-    {
-        'id': 3,
-        'body': 'This is post 3',
-        'author': 'Lucas Lang',
-        'timestamp': 'September 4'
-    }
-]
-
 # home page
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            u = User.query.get(current_user.id)
+            body_text = request.form.get('body_text')
+            post = Post(user_id = current_user.id, body = body_text)
+            post.save()
+            flash('Blog post was sucessfully posted', 'success')
+        else:
+            flash('You can only post once logged in!', 'danger')
+        return redirect(url_for('main.home'))
     context = {
-        'posts': posts
+        'posts': current_user.followed_posts() if current_user.is_authenticated else []
     }
     return render_template('home.html', **context)
 
@@ -45,7 +38,17 @@ def contact():
     return render_template("contact.html")
 
 # profile page
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    logged_in_user = 'Jay'
-    return render_template("profile.html", u=logged_in_user)
+    if request.method == 'POST':
+        u = User.query.get(current_user.id)
+        u.first_name = request.form.get('first-name')
+        u.last_name = request.form.get('last-name')
+        u.email = request.form.get('email')
+        db.session.commit()
+        flash('Profile updated sucessfully', 'info')
+        return redirect(url_for('main.profile'))
+    context = {
+        'posts': current_user.followed_posts() if current_user.is_authenticated else []
+    }
+    return render_template("profile.html", **context)

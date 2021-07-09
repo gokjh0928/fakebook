@@ -3,11 +3,13 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_moment import Moment
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
+moment = Moment()
 
 def create_app(config_class=Config):
     # __name__ as reference to current file
@@ -20,7 +22,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
-
+    moment.init_app(app)
 
     # now build the rest of the application now that app has been instantiated
     

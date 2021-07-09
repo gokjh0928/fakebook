@@ -1,5 +1,5 @@
-from flask import jsonify, render_template, url_for
-from app.blueprints.main.routes import posts
+from flask import jsonify, render_template, url_for, redirect
+from app.blueprints.blog.models import Post
 from .import bp as app
 # current_app gets instance of currently running app
 
@@ -13,11 +13,7 @@ from .import bp as app
 
 @app.route('/post/<int:id>')
 def get_post(id):
-    for p in posts:
-        if p['id'] == id:
-            post = p
-            break
     context = {
-        'p': post
+        'p': Post.query.get(id)
     }
     return render_template("blog-single.html", **context)

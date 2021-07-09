@@ -1,56 +1,80 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h3>
-    Profile | Welcome {{ current_user.email }}!
-</h3>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <img class="img-fluid" src="https://via.placeholder.com/1000x1500" alt="profile">
+<div class="container"></div>
+    <h3>
+        Profile | Welcome {{ current_user.email }}!
+    </h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-fluid" src="https://via.placeholder.com/1000x1500" alt="profile">
+        </div>
+        <div class="col-md">
+            <form action="{{ url_for('main.profile') }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="first-name" class="form-control" placeholder="First Name"
+                                value="{{ current_user.first_name }}" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="last-name" class="form-control" placeholder="Last Name"
+                                value="{{ current_user.last_name }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                value="{{ current_user.email }}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="file" class="form-control-file" name="" id="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea name="" id="" cols="40" rows="10" placeholder="Type bio here"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-info btn-block" value="Update Profile" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-md">
-        <form action="">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="First Name" />
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Last Name" />
-                    </div>
-                </div>
+    <hr />
+    <h3>Your Posts</h3>
+    <ul class="list-group">
+        {% for p in posts %}
+        <li class="list-group-item">
+            <p>
+                <a href="{{ url_for('blog.get_post', id=p.id)}}">{{ p['body'] }}</a>
+            </p>
+            <div>
+                <span>
+                    <cite>&mdash; {{ p.author.first_name }} {{ p.author.last_name }}</cite>
+                    <small class="float-right">{{ moment(p.date_created).fromNow() }}</small>
+                </span>
+                ​
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="file" class="form-control-file" name="" id="" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <textarea name="" id="" cols="40" rows="10" placeholder="Type bio here"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="submit" class="btn btn-info btn-block" value="Update Profile" />
-                </div>
-            </div>
-        </form>
-    </div>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
+
+
 {% endblock content %}}
