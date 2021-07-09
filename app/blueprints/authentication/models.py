@@ -9,6 +9,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(200))
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
     def create_password_hash(self, password):
         self.password = generate_password_hash(password)
 
