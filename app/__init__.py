@@ -29,15 +29,15 @@ def create_app(config_class=Config):
 
     # now build the rest of the application now that app has been instantiated
     
-    # blueprint for main pages
-    from app.blueprints.main import bp as main
-    app.register_blueprint(main)
+    # # blueprint for main pages
+    # from app.blueprints.main import bp as main
+    # app.register_blueprint(main)
     # blueprint for blog related pages
     from app.blueprints.blog import bp as blog
     app.register_blueprint(blog)
-    # blueprint for shop related pages
-    from app.blueprints.shop import bp as shop
-    app.register_blueprint(shop)
+    # # blueprint for shop related pages
+    # from app.blueprints.shop import bp as shop
+    # app.register_blueprint(shop)
     # blueprint for authentication related pages
     from app.blueprints.authentication import bp as authentication
     app.register_blueprint(authentication)
