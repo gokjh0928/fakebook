@@ -1,14 +1,24 @@
 from flask import render_template, url_for
-from app.blueprints.main.routes import posts
+from werkzeug.utils import redirect
+from app.blueprints.blog.models import Post
 from .import bp as app
+from flask import flash, request
+from flask_login import current_user, login_required
 
 @app.route('/post/<int:id>')
+@login_required
 def get_post(id):
-    for p in posts:
-        if p['id'] == id:
-            post = p
-            break
     context = {
-        'p': post
+        'p': Post.query.get(id)
     }
     return render_template('blog-single.html', **context)
+<<<<<<< HEAD
+=======
+
+@app.route('/post/create', methods=['POST'])
+@login_required
+def create_post():
+    Post(body=request.form.get('body'), user_id=current_user.id).save()
+    flash('Post created successfully', 'primary')
+    return redirect(url_for('main.home'))
+>>>>>>> d73017b5cc20016d4a5fb5cbe944b665f3696e16
