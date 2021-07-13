@@ -37,14 +37,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <input type="file" class="form-control-file" name="profile_image"/>
+                            <input type="file" class="form-control-file" name="profile-image"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <textarea name="" id="" cols="40" rows="10" placeholder="Type bio here"></textarea>
+                            <textarea class="form-control" name="bio" id="" cols="30" rows="10" placeholder="Type bio here">{{ current_user.bio }}</textarea>
                         </div>
                     </div>
                 </div>

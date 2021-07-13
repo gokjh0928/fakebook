@@ -22,6 +22,9 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
+    login_manager.login_view = 'authentication.login'
+    login_manager.login_message = 'Please log in to view this page'
+    login_manager.login_message_category = 'danger'
     moment.init_app(app)
 
     # now build the rest of the application now that app has been instantiated
@@ -42,8 +45,12 @@ def create_app(config_class=Config):
     # tells flask to use this app instance, and use its context
     with app.app_context():
         # build routes(paths) ---> Not needed anymore since each blueprint has own route file
-        # from .import routes
-        pass
+        from app.blueprints.main import bp as main
+        app.register_blueprint(main)
+        from app.blueprints.shop import bp as shop
+        app.register_blueprint(shop)
+        from .import context_processors
+        
     return app
 
 

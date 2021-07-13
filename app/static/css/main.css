@@ -18,3 +18,7 @@ footer {
     margin-top: 5%;
     margin-bottom: 20%;
 }
+
+p.card-text {
+    min-height: 48px;
+}
