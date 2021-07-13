@@ -1,9 +1,7 @@
 from app import create_app, db
 from app.blueprints.authentication.models import User
 from app.blueprints.blog.models import Post
-from app.blueprints.shop.models import Cart, Order, Product
-
-# the above db and User imports provides a shortcut for when running flask shell in terminal
+from app.blueprints.shop.models import Cart, Order, Product, StripeProduct
 
 app = create_app()
 
@@ -15,5 +13,6 @@ def make_context():
         'Post': Post,
         'Cart': Cart,
         'Order': Order,
-        'Product': Product
+        'Product': Product,
+        'StripeProduct': StripeProduct
     }
