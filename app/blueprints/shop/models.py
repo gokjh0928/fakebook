@@ -55,7 +55,7 @@ class Cart(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return f'<Product: {self.user_id} | {self.product_id}>'
+        return f'<Product: {self.user_id} | {self.product}>'
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)

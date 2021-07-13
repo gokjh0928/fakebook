@@ -6,6 +6,7 @@ from .models import Product, Cart, StripeProduct
 from flask_login import current_user
 import stripe
 from app import db
+import pprint
 
 @app.route('/')
 def index():
@@ -21,7 +22,7 @@ def index():
     print(StripeProduct.query.all())
     return render_template('shop/index.html', **context)
 
-@app.route('/cart')
+@app.route('/cart', methods=['GET', 'POST'])
 def cart():
     """
     [GET] /shop/cart
@@ -29,10 +30,22 @@ def cart():
     from app.context_processors import build_cart
     display_cart = build_cart()['cart_dict']
     session['session_display_cart'] = display_cart
-
+    if request.method == 'POST':
+        # Clear the current user's cart to make way for the new objects
+        display_cart = build_cart()['cart_dict']
+        session['session_display_cart'] = display_cart
+        [db.session.delete(i) for i in Cart.query.filter_by(user_id=current_user.id).all()]
+        for idx, new_amount in enumerate(request.form.getlist('amount')):
+            curr_obj_id = list(display_cart.values())[idx]['product_id']
+            # get the matching object and create copies to add to the cart
+            for _ in range(int(new_amount)):
+                Cart(user_id=current_user.id, product=curr_obj_id).save()
+        flash('Updated quantities', 'info')
+        return redirect(url_for('shop.cart'))
     context = {
         'cart': display_cart.values()
     }
+    #pprint.pprint(display_cart.values())
 
     if not current_user.is_authenticated:
         flash('You must login to view your cart', 'warning')
@@ -55,6 +68,17 @@ def add_to_cart():
     Cart(user_id=current_user.id, product=product.stripe_product_id).save()
     flash(f'You have added {product.name} to the cart', 'success')
     return redirect(url_for('shop.index'))
+
+@app.route('/cart/remove')
+def remove_from_cart():
+    if not current_user.is_authenticated:
+        flash('You must login to remove items from your cart', 'warning')
+        return redirect(url_for('authentication.login'))
+    [db.session.delete(i) for i in Cart.query.filter_by(product=request.args.get('product_id')).all()]
+    db.session.commit()
+    product_name = StripeProduct.query.filter_by(stripe_product_id=request.args.get('product_id')).first().name
+    flash(f'Removed {product_name}', 'info')
+    return redirect(url_for('shop.cart'))
 
 @app.route('/success')
 def shop_success():

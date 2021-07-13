@@ -2,6 +2,7 @@ from flask_login import current_user
 from flask import current_app as app
 from app.blueprints.shop.models import Cart, Product, StripeProduct
 from functools import reduce
+import pprint
 
 @app.context_processor
 def build_cart():
@@ -22,7 +23,7 @@ def build_cart():
         for cart_item in cart:
             # get the product info to store in the dictionary later
             p = StripeProduct.query.filter_by(stripe_product_id=cart_item.product).first()
-            if str(cart_item.product) not in cart_dict:
+            if str(p.id) not in cart_dict:
                 cart_dict[str(p.id)] = {
                     'id': cart_item.id,
                     'product_id': p.stripe_product_id,
@@ -32,10 +33,9 @@ def build_cart():
                     'description': p.description,
                     'price': f'{p.price:,.2f}',
                     'tax': p.tax
-                }
+                }         
             else:
                 cart_dict[str(p.id)]['quantity'] += 1
-
     def format_currency(price):
         return f'${price:,.2f}'
 
