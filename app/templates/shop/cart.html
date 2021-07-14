@@ -69,13 +69,13 @@
             </div> -->
         <div class="text-right">
             <div class="cart-totals">
-                Subtotal: <b>{{ cart_subtotal }}</b>
+                Subtotal: <b>{{ "$%.2f"|format(cart_subtotal / 100) }}</b>
             </div>
             <div class="cart-totals">
-                Tax: <b>{{ cart_tax }}</b>
+                Tax: <b>{{ "$%.2f"|format(cart_tax / 100) }}</b>
             </div>
             <div class="cart-totals">
-                Grand total: <b>{{ cart_grandtotal }}</b>
+                Grand total: <b>{{ "$%.2f"|format(cart_grandtotal / 100) }}</b>
             </div>
         </div>
         <div class="pull-right" style="margin: 10px">

@@ -35,18 +35,17 @@ def build_cart():
                     'price': int(p.price),
                     'tax': p.tax
                 }         
-                print(cart_dict[str(p.id)]['price'].__class__)
             else:
                 cart_dict[str(p.id)]['quantity'] += 1
-    def format_currency(price):
-        return f'${price:,.2f}'
+    # def format_currency(price):
+    #     return f'${price:,.2f}'
 
     return {
             'cart_dict': cart_dict,
             'cart_size': len(cart),
-            'cart_subtotal': format_currency(reduce(lambda x,y:x+y, [i.to_dict()['product'].price for i in cart])) if cart else 0,
-            'cart_tax': format_currency(reduce(lambda x,y:x+y, [i.to_dict()['product'].tax for i in cart])) if cart else 0,
-            'cart_grandtotal': format_currency(reduce(lambda x,y:x+y, [i.to_dict()['product'].price + i.to_dict()['product'].tax for i in cart])) if cart else 0
+            'cart_subtotal': reduce(lambda x,y:x+y, [i.to_dict()['product'].price for i in cart]) if cart else 0,
+            'cart_tax': reduce(lambda x,y:x+y, [i.to_dict()['product'].tax for i in cart]) if cart else 0,
+            'cart_grandtotal': reduce(lambda x,y:x+y, [i.to_dict()['product'].price + i.to_dict()['product'].tax for i in cart]) if cart else 0
         }
 
 @app.context_processor
