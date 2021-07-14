@@ -31,9 +31,11 @@ def build_cart():
                     'quantity': 1,
                     'name': p.name,
                     'description': p.description,
-                    'price': f'{p.price:,.2f}',
+                    # 'price': f'{p.price:,.2f}',
+                    'price': int(p.price),
                     'tax': p.tax
                 }         
+                print(cart_dict[str(p.id)]['price'].__class__)
             else:
                 cart_dict[str(p.id)]['quantity'] += 1
     def format_currency(price):
