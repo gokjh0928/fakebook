@@ -35,6 +35,9 @@ def cart():
         display_cart = build_cart()['cart_dict']
         session['session_display_cart'] = display_cart
         [db.session.delete(i) for i in Cart.query.filter_by(user_id=current_user.id).all()]
+        # reset the sequence for the cart IDs for the newly added cart objects
+        db.session.execute('ALTER SEQUENCE cart_id_seq RESTART WITH 1;')
+        db.session.commit()
         for idx, new_amount in enumerate(request.form.getlist('amount')):
             curr_obj_id = list(display_cart.values())[idx]['product_id']
             # get the matching object and create copies to add to the cart
